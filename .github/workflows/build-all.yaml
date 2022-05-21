@@ -1,0 +1,26 @@
+name: Build All
+
+on:
+  workflow_dispatch:
+    inputs:
+      dotnet_version:
+        type: string
+        required: false
+        default: "6.0"
+        description: "version of dotnet (default = 6.0)"
+
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "LICENSE"
+      - "**/README.md"
+      - "docs/*"
+
+jobs:
+  build-sdk-vscode:
+    name: Build sdk-vscode
+    uses: ulfsoft-harbour/dotnet/.github/workflows/build-and-push.yaml@master
+    with:
+      target: sdk-vscode
+      dotnet_version: ${{ github.event.inputs.dotnet_version }}
