@@ -24,3 +24,12 @@ jobs:
     with:
       target: sdk-vscode
       dotnet_version: ${{ github.event.inputs.dotnet_version }}
+
+  build-web-sdk-vscode:
+    name: Build web-sdk-vscode
+    uses: ulfsoft-harbour/dotnet/.github/workflows/build-and-push.yaml@master
+    with:
+      target: web-sdk-vscode
+      dotnet_version: ${{ github.event.inputs.dotnet_version }}
+    needs:
+      - build-sdk-vscode
