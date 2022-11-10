@@ -6,7 +6,7 @@ on:
       dotnet_version:
         type: string
         required: false
-        default: ubuntu20.04
+        default: "7.0"
       target:
         type: string
         required: true
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Setup environment
         run: |
-          echo "DOTNET_VERSION=${DOTNET_VERSION:-6.0}" >> $GITHUB_ENV
+          echo "DOTNET_VERSION=${DOTNET_VERSION:-7.0}" >> $GITHUB_ENV
           echo "RUN_ID=$(date +'%Y%m%d').${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Checkout repository
