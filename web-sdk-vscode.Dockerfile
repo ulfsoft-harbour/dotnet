@@ -5,6 +5,8 @@ ARG NODE_VERSION="18"
 
 USER root
 
-RUN curl -sL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" | bash -
+RUN curl -sL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" | bash - \
+    && apt-get update \
+    && apt-get install -y nodejs
 
 USER ${USERNAME}
