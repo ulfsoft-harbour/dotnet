@@ -1,5 +1,5 @@
-ARG DOTNET_VERSION="7.0"
-FROM mcr.microsoft.com/devcontainers/dotnet:${DOTNET_VERSION}-jammy
+ARG DOTNET_VERSION="8.0-jammy"
+FROM mcr.microsoft.com/devcontainers/dotnet:${DOTNET_VERSION}
 
 ARG USERNAME=vscode
 ARG USER_UID=1000

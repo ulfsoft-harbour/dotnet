@@ -3,10 +3,14 @@ name: Build and push
 on:
   workflow_call:
     inputs:
+      os_version:
+        type: string
+        required: false
+        default: "jammy"
       dotnet_version:
         type: string
         required: false
-        default: "7.0"
+        default: "8.0"
       target:
         type: string
         required: true
@@ -28,7 +32,8 @@ jobs:
     steps:
       - name: Setup environment
         run: |
-          echo "DOTNET_VERSION=${DOTNET_VERSION:-7.0}" >> $GITHUB_ENV
+          echo "DOTNET_VERSION=${DOTNET_VERSION:-8.0}" >> $GITHUB_ENV
+          echo "OS_VERSION=${OS_VERSION:-jammy}" >> $GITHUB_ENV
           echo "RUN_ID=$(date +'%Y%m%d').${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -76,6 +81,8 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ inputs.target }}:${{ env.DOTNET_VERSION }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ inputs.target }}:${{ env.DOTNET_VERSION }}-${{ env.RUN_ID }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ inputs.target }}:${{ env.DOTNET_VERSION }}-${{ env.OS_VERSION }}-${{ env.RUN_ID }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             DOTNET_VERSION=${{ env.DOTNET_VERSION }}
+            OS_VERSION=${{ env.OS_VERSION }}

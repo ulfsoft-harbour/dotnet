@@ -3,11 +3,16 @@ name: Build All
 on:
   workflow_dispatch:
     inputs:
+      os_version:
+        type: string
+        required: false
+        default: jammy
+        description: "version of OS (default = jammy)"
       dotnet_version:
         type: string
         required: false
-        default: "7.0"
-        description: "version of dotnet (default = 7.0)"
+        default: "8.0"
+        description: "version of dotnet (default = 8.0)"
 
   push:
     branches:
@@ -23,6 +28,7 @@ jobs:
     uses: ulfsoft-harbour/dotnet/.github/workflows/build-and-push.yaml@master
     with:
       target: sdk-vscode
+      os_version: ${{ github.event.inputs.os_version }}
       dotnet_version: ${{ github.event.inputs.dotnet_version }}
 
   build-web-sdk-vscode:
@@ -30,6 +36,7 @@ jobs:
     uses: ulfsoft-harbour/dotnet/.github/workflows/build-and-push.yaml@master
     with:
       target: web-sdk-vscode
+      os_version: ${{ github.event.inputs.os_version }}
       dotnet_version: ${{ github.event.inputs.dotnet_version }}
     needs:
       - build-sdk-vscode

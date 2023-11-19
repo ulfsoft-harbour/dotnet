@@ -1,7 +1,7 @@
-ARG DOTNET_VERSION="7.0"
+ARG DOTNET_VERSION="8.0-jammy"
 FROM ghcr.io/ulfsoft-harbour/dotnet/sdk-vscode:${DOTNET_VERSION}
 
-ARG NODE_VERSION="18"
+ARG NODE_VERSION="20"
 
 USER root
 
